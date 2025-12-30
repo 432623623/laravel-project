@@ -12,6 +12,7 @@
         "laravel/sanctum": "^4.2",
         "laravel/scout": "^10.23",
         "laravel/tinker": "^2.10.1",
+        "league/commonmark": "^2.8",
         "livewire/livewire": "^3.7",
         "pusher/pusher-php-server": "^7.2"
     },

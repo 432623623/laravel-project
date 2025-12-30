@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-
+use League\CommonMark\CommonMarkConverter;
 class PostController extends Controller
 {
     public function search($term){
@@ -36,8 +36,14 @@ class PostController extends Controller
     }
     //
     public function viewSinglePost(Post $post){
-        $post['body'] = strip_tags(Str::markdown($post->body),'<p><ul><ol><li><strong><em><h1><h2><h3><br>');
-        return view('/single-post',['post'=>$post]);
+        // Initialize the converter
+        $converter = new CommonMarkConverter([
+            'html_input' => 'strip',     // strips any unsafe HTML
+            'allow_unsafe_links' => false, // disables unsafe links
+        ]);
+
+        // Convert Markdown to safe HTML
+        $post['body'] = $converter->convertToHtml($post->body);        return view('/single-post',['post'=>$post]);
     }
     public function showCreateForm(){
         /*
