@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container">
+    <div class="container py-md-2">
       <div class="row align-items-center">
         <div class="col-lg-7 py-3 py-md-5">
           <h1 class="display-4">Laravel Blog App</h1>
