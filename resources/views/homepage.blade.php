@@ -12,7 +12,7 @@
             <li>follow</li>
             <li>search</li>            
           </ul> 
-          <p class="lead text-muted">To explore this app, simply create a user account. Users have authored {{$postCount}} posts</p>
+          <p class="lead text-muted">Users have authored {{$postCount}} posts</p>
         </div>
         <div class="col-lg-5 pl-lg-5 pb-3 py-lg-5">
           <form action="/register" method="POST" id="registration-form">
