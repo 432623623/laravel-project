@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>
       @isset($doctitle)
-      {{$doctitle}} | OurApp
+      {{$doctitle}} | Laravel App
       @else
       OurApp
       @endisset
