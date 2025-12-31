@@ -26,14 +26,18 @@
   <body>
     <header class="header-bar mb-3">
       <div class="container d-flex flex-column flex-md-row align-items-center p-3">
-        <h4 class="my-0 mr-md-auto font-weight-normal"><a wire:navigate href="/" class="text-white">Laravel App</a></h4>
+        <h4 class="my-0 mr-md-auto font-weight-normal">
+          <a wire:navigate href="/" class="text-white">Laravel App</a>
+        </h4>
         @auth
             <div class="flex-row my-3 my-md-0">
               @persist('headerdynamic')
               <livewire:search />
-              <livewire:chat />
               @endpersist
-              <a wire:navigate href="/profile/{{auth()->user()->username}}" class="mr-2"><img title="My Profile" data-toggle="tooltip" data-placement="bottom" style="width: 32px; height: 32px; border-radius: 16px" src="{{auth()->user()->avatar}}" /></a>
+              <a wire:navigate href="/profile/{{auth()->user()->username}}" 
+                class="mr-2"><img title="My Profile" data-toggle="tooltip" 
+                data-placement="bottom" style="width: 32px; height: 32px; border-radius: 16px" 
+                src="{{auth()->user()->avatar}}" /></a>
               <a wire:navigate class="btn btn-sm btn-success mr-2" href="/create-post">Create Post</a>
               <form action="/logout" method="POST" class="d-inline">
                 @csrf
