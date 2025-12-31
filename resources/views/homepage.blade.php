@@ -13,7 +13,7 @@
           </ul> 
           <p class="lead text-muted">Users have authored {{$postCount}} posts</p>
         </div>
-        <div class="col-lg-5 pl-lg-5 pb-3 py-lg-5">
+        <div class="col-lg-5 pl-lg-5 pb-3 py-lg-2">
           <form action="/register" method="POST" id="registration-form">
             <div class="form-group">
               @csrf

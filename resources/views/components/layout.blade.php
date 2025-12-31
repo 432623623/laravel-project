@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>
       @isset($doctitle)
-      {{$doctitle}} | Laravel App
+      {{$doctitle}} | Example App
       @else
       Example App
       @endisset
@@ -26,7 +26,7 @@
     <header class="header-bar mb-3">
       <div class="container d-flex flex-column flex-md-row align-items-center p-3">
         <h4 class="my-0 mr-md-auto font-weight-normal">
-          <a wire:navigate href="/" class="text-white">Laravel App</a>
+          <a wire:navigate href="/" class="text-white">Example App</a>
         </h4>
         @auth
             <div class="flex-row my-3 my-md-0">
