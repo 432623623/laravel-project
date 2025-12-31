@@ -1,8 +1,12 @@
 body,
 .tooltip {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', serif;
 }
 
 .header-bar {
