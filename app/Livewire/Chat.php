@@ -1,5 +1,6 @@
-<?php
 
+<?php
+/*
 namespace App\Livewire;
 
 use Livewire\Component;
@@ -24,8 +25,16 @@ class Chat extends Component
         if(trim(strip_tags($this->textvalue))==""){
             return;
         }
-        array_push($this->chatLog, ['selfmessage' => true, 'username' => auth()->user()->username, 'textvalue' => strip_tags($this->textvalue), 'avatar' => auth()->user()->avatar]);
-        broadcast(new ChatMessage(['selfmessage' => false, 'username' => auth()->user()->username, 'textvalue' => strip_tags($this->textvalue), 'avatar' => auth()->user()->avatar]))->toOthers();
+        array_push($this->chatLog, [
+        'selfmessage' => true, 
+        'username' => auth()->user()->username, 
+        'textvalue' => strip_tags($this->textvalue), 
+        'avatar' => auth()->user()->avatar]);
+        broadcast(new ChatMessage([
+            'selfmessage' => false, 
+            'username' => auth()->user()->username, 
+            'textvalue' => strip_tags($this->textvalue), 
+            'avatar' => auth()->user()->avatar]))->toOthers();
         $this->textvalue = '';
     }
 
@@ -34,3 +43,4 @@ class Chat extends Component
         return view('livewire.chat');
     }
 }
+*/
