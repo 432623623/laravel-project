@@ -1,8 +1,8 @@
 <x-layout>
     <div class="container py-md-1">
       <div class="row align-items-center">
-        <div class="col-lg-7 py-3 py-md-5">
-          <h1 class="display-4">Example App</h1>
+        <div class="col-lg-7 py-3 py-md-3">
+          <h2 class="display-4">Example App</h1>
           <p class="lead text-muted">This Laravel and Livewire app features: </p>
           <ul class="lead text-muted"> 
             <li>blog posting</li>  
