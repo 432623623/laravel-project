@@ -6,7 +6,6 @@
           <p class="lead text-muted">This app features: </p>
           <ul class="lead text-muted"> 
             <li>blog posting</li>  
-            <li>live chat with other users</li>
             <li>member registration</li>
             <li>login/logout</li>
             <li>follow</li>
