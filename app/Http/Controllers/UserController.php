@@ -52,9 +52,13 @@ class UserController extends Controller
     private function getSharedData($user){
         $nowFollowing = 0;
         if(auth()->check()){
-            $nowFollowing = Follow::where([['user_id','=',auth()->user()->id],['followeduser','=',$user->id]])->count();
+            $nowFollowing = Follow::where([['user_id','=',auth()->user()->id],
+            ['followeduser','=',$user->id]])->count();
         }
-        View::share('sharedData',['nowFollowing'=>$nowFollowing, 'avatar'=> $user->avatar, 'username'=>$user->username, 'postCount'=>$user->posts()->count(), 'followerCount'=> $user->followers()->count(), 'followingCount'=> $user->following()->count()]);
+        View::share('sharedData',['nowFollowing'=>$nowFollowing, 
+        'avatar'=> $user->avatar, 'username'=>$user->username, 
+        'postCount'=>$user->posts()->count(), 'followerCount'=> $user->followers()->count(), 
+        'followingCount'=> $user->following()->count()]);
     }
     public function logout(){
         event(new OurExampleEvent(['username'=>auth()->user()->username, 'action'=>'logout']));
@@ -92,7 +96,8 @@ class UserController extends Controller
         if(auth()->attempt(['username'=>$incomingFields['loginusername'],
                             'password'=>$incomingFields['loginpassword']])){
             $request->session()->regenerate();
-        event(new OurExampleEvent(['username'=>auth()->user()->username, 'action'=>'login']));
+        event(new OurExampleEvent(['username'=>auth()->user()->username, 
+            'action'=>'login']));
             return redirect('/')->with('success','you are logged in');
         }else{
             return redirect('/')->with('failure','invalid login');

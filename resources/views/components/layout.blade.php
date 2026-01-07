@@ -21,8 +21,9 @@
     @vite(['resources/js/app.js'])
     <livewire:styles />
   </head>
-  <livewire:scripts />
   <body>
+  
+
     <header class="header-bar mb-3">
       <div class="container d-flex flex-column flex-md-row align-items-center p-3">
         <h4 class="my-0 mr-md-auto font-weight-normal">
@@ -90,6 +91,7 @@
     <script>
       $('[data-toggle="tooltip"]').tooltip()
     </script>
+      <livewire:scripts />
   </body>
 </html>
 

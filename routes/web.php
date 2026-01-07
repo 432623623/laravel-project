@@ -1,6 +1,5 @@
 <?php
 
-use App\Events\ChatMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -20,8 +19,10 @@ Route::get('/manage-avatar', [UserController::class,'showAvatarForm'])->middlewa
 Route::post('/manage-avatar', [UserController::class,'storeAvatar'])->middleware('mustBeLoggedIn');
 
 // follow related routes
-Route::post('/create-follow/{user:username}', [FollowController::class,'createFollow'])->middleware('mustBeLoggedIn');
-Route::post('/remove-follow/{user:username}', [FollowController::class,'removeFollow'])->middleware('mustBeLoggedIn');
+Route::post('/create-follow/{user:username}', 
+[FollowController::class,'createFollow'])->middleware('mustBeLoggedIn');
+Route::post('/remove-follow/{user:username}', 
+[FollowController::class,'removeFollow'])->middleware('mustBeLoggedIn');
 
 // blog post related
 Route::get('/create-post',[PostController::class, 'showCreateForm'])->middleware('mustBeLoggedIn');

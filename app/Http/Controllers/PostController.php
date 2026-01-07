@@ -30,7 +30,7 @@ class PostController extends Controller
         $post->delete();
         return redirect('/profile/' . auth()->user()->username)->with('success','Post deleted');
     }
-       public function deleteApi(Post $post){
+    public function deleteApi(Post $post){
         $post->delete();
         return 'true';
     }
@@ -43,7 +43,8 @@ class PostController extends Controller
         ]);
 
         // Convert Markdown to safe HTML
-        $post['body'] = $converter->convertToHtml($post->body);        return view('/single-post',['post'=>$post]);
+        $post['body'] = $converter->convertToHtml($post->body);        
+        return view('/single-post',['post'=>$post]);
     }
     public function showCreateForm(){
         /*
