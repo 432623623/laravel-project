@@ -13,12 +13,14 @@ class NewPostEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public array $data;
+
     /**
      * Create a new message instance.
      */
-    public function __construct(public $data)
+    public function __construct(array $data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -40,7 +42,9 @@ class NewPostEmail extends Mailable
             view: 'new-post-email',
             with: [
                 'title' => $this->data['title'], 
-                'name' => $this->data['name']]
+                'name' => $this->data['name'],
+                'url' => $this->data['url'],
+                ]
         );
     }
 

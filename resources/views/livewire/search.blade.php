@@ -3,7 +3,7 @@
       setTimeout(()=> document.querySelector('#live-search-field').focus(),50)" 
       style="background: none; border: none; padding: 0; margin: 0; 
       outline: none; cursor: pointer" class="text-white mr-2 header-search-icon" 
-      title="Search" data-toggle="tooltip" data-placement="bottom">
+      title="Search Posts" data-toggle="tooltip" data-placement="bottom">
       <i class="fas fa-search"></i></button>
     <div class="search-overlay" x-bind:class="isOpen ? 'search-overlay--visible' : ''">
     <div class="search-overlay-top shadow-sm">
@@ -14,7 +14,7 @@
         classList.add('circle-loader--visible'); 
         if (document.querySelector('#no-results')) 
         {document.querySelector('#no-results').style.display = 'none'}" 
-        wire:model.live.debounce.750ms="searchTerm" autocomplete="off" 
+        wire:model.live.debounce.750ms="search" autocomplete="off" 
         type="text" id="live-search-field" class="live-search-field" 
         placeholder="What are you interested in?">
         <span x-on:click="isOpen = false" 
@@ -26,7 +26,7 @@
       <div class="container container--narrow py-3">
         <div class="circle-loader"></div>
         <div class="live-search-results live-search-results--visible">
-            @if(count($results)==0 && $searchTerm !== "")
+            @if(count($results)==0 && $search !== "")
             <p id="no-results" class="alert alert-danger text-center shadow-sm">
               sorry no results</p>
             @endif

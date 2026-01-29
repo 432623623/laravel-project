@@ -9,12 +9,31 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Merriweather', serif;
 }
 
+figcaption {
+  display: none !important;
+}
+
 .header-bar {
   background-color: #758A93;
 }
 
+.header-bar .container {
+  padding-right: 0;
+}
+
+.header-bar .container-fluid {
+  padding-right: 0 !important;
+}
+
+.header-bar .d-flex.align-items-end:last-child {
+    margin-right: 0;
+    padding-right: 0;
+}
+
 .container--narrow {
-  max-width: 732px;
+  max-width: 720px;
+  margin-left: auto;
+  margin-left: auto;
 }
 
 .header-search-icon {
@@ -26,6 +45,67 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
   position: relative;
   top: 3px;
+}
+/*
+.form-row > [class*="col-"]{
+  padding-left: .5rem;
+  padding-right: .5rem;
+}
+*/
+.top-nav {
+    margin-right: 1rem;
+}
+
+.top-nav a {
+  color: #fff;
+  margin-right: 0.5rem;
+  text-decoration: none;
+}
+
+.top-nav a:hover {
+  text-decoration: underline;
+}
+    
+.post-thumbnail {
+  max-width: 300px;
+  height: auto;
+}
+
+.account-section {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.account-section .section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  margin-top: 2.5rem;
+}
+
+.account-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 400px;
+}
+
+.account-section input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.account-section button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  width: fit-content;
+}
+
+.post-thumbnail-mini {
+  max-height: 50px;
+  width: auto;
 }
 
 .avatar-small {
@@ -90,12 +170,13 @@ h1, h2, h3, h4, h5, h6 {
   color: #888;
 } */
 
+/*
 @media (min-width: 768px) {
   .input-dark {
     width: auto;
   }
 }
-
+*/
 .display-3 {
   font-size: 4.35rem;
 }
@@ -116,6 +197,12 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
+.body-content img {
+  max-width: 500px;
+  height: auto;
+  cursor: zoom-in;
+}
+
 .liveValidateMessage {
   transition: all 0.5s ease-out;
   top: -6px;
@@ -131,13 +218,13 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1;
   transform: translateY(0);
 }
-
+/*
 .form-group input,
 .form-group textarea {
   position: relative;
   z-index: 2;
 }
-
+*/
 textarea.tall-textarea {
   height: 160px;
 }
@@ -399,6 +486,7 @@ textarea.tall-textarea {
   font-size: 0.75rem;
 }
 
+/*
 header .flex-row > div {
     display: inline;
 }
@@ -406,4 +494,4 @@ header .flex-row > div {
 header .flex-row > div > div {
     display: inline;
 }
-
+*/

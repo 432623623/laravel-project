@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+//use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use League\CommonMark\CommonMarkConverter;
 class PostController extends Controller
 {
@@ -18,8 +22,8 @@ class PostController extends Controller
     }
     public function actuallyUpdate(Post $post, Request $request){
         $incomingFields = $request->validate([
-            'title' => 'required',
-            'body' => 'required'
+            'title' => 'required|min:3',
+            'body' => 'required|min:10'
         ]);
         $incomingFields['title'] = strip_tags($incomingFields['title']);
         $incomingFields['body'] = strip_tags($incomingFields['body']);
@@ -36,30 +40,19 @@ class PostController extends Controller
     }
     //
     public function viewSinglePost(Post $post){
-        // Initialize the converter
-        $converter = new CommonMarkConverter([
-            'html_input' => 'strip',     // strips any unsafe HTML
-            'allow_unsafe_links' => false, // disables unsafe links
-        ]);
-
-        // Convert Markdown to safe HTML
-        $post['body'] = $converter->convertToHtml($post->body);        
-        return view('/single-post',['post'=>$post]);
+    
+        return view('single-post',['post'=>$post]);
     }
     public function showCreateForm(){
-        /*
-        if (!auth()->check()){
-            return redirect('/');
-        }*/
         return view('/create-post');
     }
     public function storeNewPostApi(Request $request){
         $incomingFields = $request->validate([
-            'title'=> 'required',
-            'body'=> 'required'
+            'title'=> 'required|min:3',
+            'body'=> 'required|min:10'
         ]);
         $incomingFields['title'] = strip_tags($incomingFields['title']);
-        $incomingFields['body'] = strip_tags($incomingFields['body']);
+        $incomingFields['body'] = $incomingFields['body'];
         $incomingFields['user_id'] = auth()->id();
 
         $newPost = Post::create($incomingFields);
@@ -67,19 +60,37 @@ class PostController extends Controller
         session()->flash('success', 'New post created');
         return $newPost->id;
     }
-    /*
-    public function storeNewPost(Request $request){
-        $incomingFields = $request->validate([
-            'title'=> 'required',
-            'body'=> 'required'
+    public function index(){
+        $posts = Post::latest()->paginate(10);
+        return view('posts.index', compact('posts'));
+    }
+    public function uploadTrixImage (Request $request){
+        try{
+
+        $request->validate([
+            'image' => 'required|image|max:3072'
         ]);
-        $incomingFields['title'] = strip_tags($incomingFields['title']);
-        $incomingFields['body'] = strip_tags($incomingFields['body']);
-        $incomingFields['user_id'] = auth()->id();
+        $file = $request->file('image');
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
 
-        $newPost = Post::create($incomingFields);
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read($file->getRealPath());
 
-        session()->flash('success', 'New post created');
-        return redirect("/post/{$newPost->id}", navigate:true);
-    }*/
+        $fullPath = storage_path("app/public/trix-images/full/$filename");
+        $image->scale(width: 1200)->save($fullPath, quality: 85);
+
+        $thumbPath = storage_path("app/public/trix-images/thumb/$filename");
+        $image->cover(300,200)->save($thumbPath, quality: 80);  
+
+        return response()->json([
+            'url'=>asset("storage/trix-images/thumb/$filename"),
+            'full'=>asset("storage/trix-images/full/$filename")
+        ]);
+        } catch(\Throwable $e){
+            \Log::error('Trix upload failed: ' .$e->getMessage());
+            return response()->json([
+                'error'=> $e->getMessage()
+            ], 500);
+        }
+    }
 }

@@ -4,65 +4,99 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>
       @isset($doctitle)
       {{$doctitle}} | Example App
-      @else
+      @else 
       Example App
       @endisset
     </title>
     <link rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
       crossorigin="anonymous"/>
-    <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">    @vite(['resources/css/app.css'])
     @vite(['resources/js/app.js'])
-    <livewire:styles />
-  </head>
-  <body>
-  
+    <link rel="stylesheet" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+    <script src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
 
+    <livewire:styles />
+   </head>
+  <body>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
     <header class="header-bar mb-3">
-      <div class="container d-flex flex-column flex-md-row align-items-center p-3">
+      <div class="container-fluid d-flex flex-column flex-md-row 
+      align-items-center align-items-md-end py-3 text-center text-md-left">
         <h4 class="my-0 mr-md-auto font-weight-normal">
-          <a wire:navigate href="/" class="text-white">Example App</a>
+          <a wire:navigate href="/" class="text-white">
+            <img src="{{ asset('logo.png') }}" alt="Example App" style="height: 40px;">
+          </a>
         </h4>
+        <nav class="top-nav d-flex align-items-end">
+          <a href="{{ route('posts.index')}}" title="All User Posts" data-toggle="tooltip">Posts</a>
+          <a href="{{ route('users.index')}}" title="All Users" data-toggle="tooltip">Users</a>
+          @auth
+          @if( auth()->user()->is_admin && !Route::is('admin.dashboard'))
+            <a href="{{ route('admin.dashboard')}}" 
+            title="Admin Dashboard" data-toggle="tooltip">Admin</a>
+          @endif
+          <a href="{{ route('account.manage') }}" title="My Account" 
+          data-toggle="tooltip">Account</a>
+          @endauth
+        </nav>
         @auth
-            <div class="flex-row my-3 my-md-0">
-              @persist('headerdynamic')
-              <livewire:search />
-              @endpersist
+            <div class="d-flex flex-column align-items-end">
+              <form action="{{ route('search.index') }}" method="GET" 
+                class="d-flex align-items-center" >
+                <input type="text" name="q" 
+                  class="form-control form-control-sm mb-2"                   
+                  placeholder = "Search posts... " 
+                  autocomplete="off" value="{{ request('q')}}">
+                <button type="submit" class="btn btn-sm btn-primary ml-2 mr-4 mb-2">
+                  <i class= "fas fa-search"></i>
+                </button>
+              </form>
+              <div class="d-flex align-items-end">
               <a wire:navigate href="/profile/{{auth()->user()->username}}" 
                 class="mr-2"><img title="My Profile" data-toggle="tooltip" 
                 data-placement="bottom" style="width: 32px; height: 32px; border-radius: 16px" 
                 src="{{auth()->user()->avatar}}" /></a>
-              <a wire:navigate class="btn btn-sm btn-success mr-2" href="/create-post">Create Post</a>
-              <form action="/logout" method="POST" class="d-inline">
+              <a wire:navigate class="btn btn-sm btn-success mr-2" 
+                href="/create-post">Create Post</a>
+              <form action="/logout" method="POST" class="d-inline mr-4">
                 @csrf
                 <button class="btn btn-sm btn-secondary">Sign Out</button>
               </form>
+              </div>
             </div>
         @else            
-            <form action="/login" method="POST" class="mb-0 pt-2 pt-md-0">
+        <div class="d-flex flex-column align-items-center">
+            <form action="/login" method="POST" class="mb-0 pt-2 pt-md-0 needs-validation">
               @csrf
-              <div class="row align-items-center">
-                <div class="col-md mr-0 pr-md-0 mb-3 mb-md-0">
-                  <input name="loginusername" class="form-control form-control-sm input-dark" type="text" placeholder="Username" autocomplete="off" />
+              <div class="form-row align-items-center">
+                <div class="col-14 col-md-4 mb-2 mb-md-0">
+                  <input name="loginusername" 
+                  class="form-control form-control-sm input-dark" 
+                  type="text" placeholder="Username" autocomplete="off" required />
                 </div>
-                <div class="col-md mr-0 pr-md-0 mb-3 mb-md-0">
-                  <input name="loginpassword" class="form-control form-control-sm input-dark" type="password" placeholder="Password" />
+                <div class="col-14 col-md-4 mb-2 mb-md-0">
+                  <input name="loginpassword" 
+                  class="form-control form-control-sm input-dark" 
+                  type="password" placeholder="Password" required/>
                 </div>
-                <div class="col-md-auto">
-                  <button class="btn btn-primary btn-sm">Sign In</button>
+                <div class="col-14 col-md-auto">
+                  <button 
+                  class="btn btn-primary btn-sm btn-block btn-md-inline">
+                  Sign In</button>
                 </div>
               </div>
             </form>
-        @endauth
-
           </div>
-        </header>
+        @endauth
+      
+</header>
         <!-- header ends here -->
         @if (session()->has('success'))
         <div class="container container--narrow">
@@ -78,6 +112,7 @@
           </div>
         </div>
         @endif
+
     {{$slot}}
 
     <!-- footer begins -->
@@ -92,6 +127,7 @@
       $('[data-toggle="tooltip"]').tooltip()
     </script>
       <livewire:scripts />
+      @stack('scripts')
+      
   </body>
 </html>
-

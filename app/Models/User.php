@@ -8,6 +8,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class User extends Authenticatable
 {
@@ -23,11 +25,20 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'avatar',
+        'is_banned',
     ];
 
     protected function avatar(): Attribute {
-        return Attribute::make(get: function($value){
-            return $value ? '/storage/avatars/' . $value : '/fallback-avatar.jpg';
+        return Attribute::make(
+            get: function($value){
+                if(!$value){
+                    return asset('storage/fallback-avatar.jpg');
+                }
+                if(str_starts_with($value,'http') || str_starts_with($value,'/storage/')){
+                    return $value;
+                }
+            return asset('/storage/avatars/' . $value);
         });
     }
 
@@ -64,5 +75,21 @@ class User extends Authenticatable
     }
     public function following(){
         return $this->hasMany(Follow::class,'user_id');
+    }
+    public function isAdmin():bool{
+        return (bool) $this->is_admin;
+    }
+    public function isBanned():bool{
+        return (bool) $this->is_banned;
+    }
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+    protected static function booted(){
+        static::deleting(function ($user){
+            foreach($user->posts as $post){
+                $post->delete();
+            }
+        });
     }
 }

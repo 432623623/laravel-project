@@ -3,20 +3,25 @@
 namespace App\Jobs;
 
 use App\Mail\NewPostEmail;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
 class SendNewPostEmail implements ShouldQueue
 {
-    use Queueable;
-    public $incoming;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;    
+    
+    public array $incoming;
+
     public $tries=3;
     public $backoff = 30;
     /**
      * Create a new job instance.
      */
-    public function __construct($incoming)
+    public function __construct(array $incoming)
     {
         $this->incoming = $incoming;
     }
@@ -24,12 +29,10 @@ class SendNewPostEmail implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle()
+    public function handle(): void
     {
         
         Mail::to($this->incoming['sendTo'])
-            ->send(new NewPostEmail([
-                'name'=> $this->incoming['name'], 
-                'title'=> $this->incoming['title']]));
+            ->send(new NewPostEmail($this->incoming));
     }
 }

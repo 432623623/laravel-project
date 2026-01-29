@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->boolean('isAdmin')->default(0);
+            $table->boolean('is_admin')->default(false);
         });
     }
 
@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->dropColumn('isAdmin');
+            $table->dropColumn('is_admin');
         });
     }
 };

@@ -15,7 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         //
         $middleware->alias([
-            'mustBeLoggedIn' => \App\Http\Middleware\MustBeLoggedIn::class
+            'mustBeLoggedIn' => \App\Http\Middleware\MustBeLoggedIn::class,
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'checkBanned' => \App\Http\Middleware\CheckBanned::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

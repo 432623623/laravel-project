@@ -8,16 +8,28 @@ use App\Livewire\Search;
 
 class Search extends Component
 {
-    public $searchTerm = '';
+    public $search = '';
     public $results;
+
+    public function mount(){
+        $this->results = collect();
+    }
 
     public function render()
     {
-        if($this->searchTerm==''){
-            $this->results = array();
-        }else{
-            $posts = Post::search($this->searchTerm)->get();
-            $this->results = $posts;
+        if($this->search !== ''){
+                    $query = Post::with('user');
+
+            $search = $this->search;
+            $query->where(function ($q) use($search){
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('body', 'like', "%{$search}%")
+                  ->orWhereHas('user', function($u) use($search){
+                        $u->where('username', 'like', "%{$search}%");
+                    });
+            });
+                    $this->results = $query->latest()->get();
+
         }
         return view('livewire.search');
     }

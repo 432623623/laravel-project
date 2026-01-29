@@ -2,14 +2,20 @@
     <div class="container py-md-1">
       <div class="row align-items-center">
         <div class="col-lg-7 py-3 py-md-3">
-          <h1 class="display-4 pb-4">Example App</h1>
+          <!--<h1 class="display-4 pb-4">Example App</h1>-->
           <p class="lead text-muted">This Laravel and Livewire app features: </p>
           <ul class="lead text-muted"> 
             <li>blog posting</li>  
+            <li>blog commenting</li>
             <li>user registration</li>
-            <li>follow</li>
-            <li>search</li>        
-            <li>add or change avatar</li>    
+            <li>follow users</li>
+            <li>search posts/users</li>        
+            <li>add/change avatar</li>   
+            <li>admin page</li>    
+              <ul>
+                <li>ban/unban/delete users</li>
+                <li>edit/delete posts</li>
+              </ul> 
           </ul> 
           <p class="lead text-muted">Users have authored {{$postCount}} posts</p>
         </div>
