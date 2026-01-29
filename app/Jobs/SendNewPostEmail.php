@@ -30,8 +30,7 @@ class SendNewPostEmail implements ShouldQueue
      * Execute the job.
      */
     public function handle(): void
-    {
-        
+    {        
         Mail::to($this->incoming['sendTo'])
             ->send(new NewPostEmail($this->incoming));
     }
