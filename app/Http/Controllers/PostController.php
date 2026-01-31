@@ -74,13 +74,14 @@ class PostController extends Controller
         $filename = uniqid() . '.' . $file->getClientOriginalExtension();
 
         $manager = new ImageManager(new Driver());
-        $image = $manager->read($file->getRealPath());
 
+        $fullImage = $manager->read($file->getRealPath());
         $fullPath = storage_path("app/public/trix-images/full/$filename");
-        $image->scale(width: 1200)->save($fullPath, quality: 85);
+        $fullImage->scale(width: 1200)->save($fullPath, quality: 85);
 
+        $thumbImage = $manager->read($file->getRealPath());
         $thumbPath = storage_path("app/public/trix-images/thumb/$filename");
-        $image->scaleDown(300,200)->save($thumbPath, quality: 100);  
+        $thumbImage->cover(300,200)->save($thumbPath, quality: 85);  
 
         return response()->json([
             'url'=>asset("storage/trix-images/thumb/$filename"),
