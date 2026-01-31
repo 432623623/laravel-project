@@ -5,7 +5,7 @@
         @forelse($users as $user)
         <x-user :user="$user"/>
         @empty
-        <div class="text-muted">No users</div>
+        <div class="text-muted mb-4">No users</div>
         @endforelse        
       </div>
         {{ $users->links() }}

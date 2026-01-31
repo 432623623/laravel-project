@@ -5,7 +5,7 @@
         @forelse($posts as $post)
         <x-post :post="$post"/>
         @empty
-        <div class="text-muted">No posts</div>
+        <div class="text-muted mb-4">No posts</div>
         @endforelse        
       </div>
         {{ $posts->links() }}
