@@ -198,7 +198,7 @@ figcaption {
 }
 
 .body-content img {
-  max-width: 500px;
+  max-width: 300px;
   height: auto;
   cursor: zoom-in;
 }
