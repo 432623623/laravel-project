@@ -33,7 +33,7 @@ class User extends Authenticatable
         return Attribute::make(
             get: function($value){
                 if(!$value){
-                    return asset('storage/fallback-avatar.jpg');
+                    return asset('storage/avatars/fallback-avatar.jpg');
                 }
                 if(str_starts_with($value,'http') || str_starts_with($value,'/storage/')){
                     return $value;
