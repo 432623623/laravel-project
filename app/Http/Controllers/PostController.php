@@ -81,7 +81,7 @@ class PostController extends Controller
 
         $thumbImage = $manager->read($file->getRealPath());
         $thumbPath = storage_path("app/public/trix-images/thumb/$filename");
-        $thumbImage->cover(300,200)->save($thumbPath, quality: 85);  
+        $thumbImage->scale(width:300, height:200)->save($thumbPath, quality: 85);  
 
         return response()->json([
             'url'=>asset("storage/trix-images/thumb/$filename"),
