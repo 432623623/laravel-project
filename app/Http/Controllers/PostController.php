@@ -80,10 +80,7 @@ class PostController extends Controller
         $image->scale(width: 1200)->save($fullPath, quality: 85);
 
         $thumbPath = storage_path("app/public/trix-images/thumb/$filename");
-        $image->resize(300,200, function ($constraint){
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        })->save($thumbPath, quality: 80);  
+        $image->scaleDown(300,200)->save($thumbPath, quality: 80);  
 
         return response()->json([
             'url'=>asset("storage/trix-images/thumb/$filename"),
