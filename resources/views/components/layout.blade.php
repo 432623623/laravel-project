@@ -52,7 +52,7 @@
                 class="d-flex align-items-center" >
                 <input type="text" name="q" 
                   class="form-control form-control-sm mb-2"                   
-                  placeholder = "Search posts... " 
+                  placeholder = "Search posts and users... " 
                   autocomplete="off" value="{{ request('q')}}">
                 <button type="submit" class="btn btn-sm btn-primary ml-2 mr-4 mb-2">
                   <i class= "fas fa-search"></i>

@@ -2,9 +2,11 @@
     <div class="container container--narrow">
         <h2 class="mb-4">Posts</h2>
       <div class="list-group">
-        @foreach($posts as $post)
+        @forelse($posts as $post)
         <x-post :post="$post"/>
-        @endforeach        
+        @empty
+        <div class="text-muted">No posts</div>
+        @endforelse        
       </div>
         {{ $posts->links() }}
     </div>
