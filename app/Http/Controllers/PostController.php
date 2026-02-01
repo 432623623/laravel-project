@@ -74,7 +74,7 @@ class PostController extends Controller
         $filename = uniqid() . '.' . $file->getClientOriginalExtension();
 
       
-        $path = $file->storeAs("app/public/trix-images/$filename");
+        $path = $file->storeAs('public/trix-images',$filename);
 
         return response()->json([
             'url'=>asset("storage/trix-images/$filename"),
