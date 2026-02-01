@@ -73,19 +73,11 @@ class PostController extends Controller
         $file = $request->file('image');
         $filename = uniqid() . '.' . $file->getClientOriginalExtension();
 
-        $manager = new ImageManager(new Driver());
-
-        $fullImage = $manager->read($file->getRealPath());
-        $fullPath = storage_path("app/public/trix-images/full/$filename");
-        $fullImage->scale(width: 1200)->save($fullPath, quality: 85);
-
-        $thumbImage = $manager->read($file->getRealPath());
-        $thumbPath = storage_path("app/public/trix-images/thumb/$filename");
-        $thumbImage->scale(width:300)->save($thumbPath, quality: 100);  
+      
+        $path = $file->storeAs("app/public/trix-images/$filename");
 
         return response()->json([
-            'url'=>asset("storage/trix-images/thumb/$filename"),
-            'full'=>asset("storage/trix-images/full/$filename")
+            'url'=>asset("storage/trix-images/$filename"),
         ]);
         } catch(\Throwable $e){
             \Log::error('Trix upload failed: ' .$e->getMessage());
