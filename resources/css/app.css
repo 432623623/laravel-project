@@ -65,12 +65,13 @@ figcaption {
 .top-nav a:hover {
   text-decoration: underline;
 }
-    
+
+/*
 .post-thumbnail {
   max-width: 300px;
   height: auto;
 }
-
+*/
 .account-section {
   margin-bottom: 2rem;
   margin-top: 2rem;
