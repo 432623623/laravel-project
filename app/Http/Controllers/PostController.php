@@ -72,7 +72,6 @@ class PostController extends Controller
         ]);
         $file = $request->file('image');
         $filename = uniqid() . '.' . $file->getClientOriginalExtension();
-
       
         $path = $file->storeAs('trix-images', $filename, 'public');
         $url = Storage::disk('public')->url("trix-images/$filename");
@@ -83,7 +82,7 @@ class PostController extends Controller
 */
         return response()->json([
             'url'=>$url,
-            'full'=>url
+            'full'=>$url
         ]);
         } catch(\Throwable $e){
             \Log::error('Trix upload failed: ' .$e->getMessage());
