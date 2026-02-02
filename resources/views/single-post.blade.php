@@ -26,7 +26,7 @@
       @if($post->image)
       <div class="mb-4 text-center">
         <a target="_blank" href="{{ asset('storage/' . $post->image) }}">
-        <img class="post-thumbnail"
+        <img 
           src="{{ asset('storage/' . $post->image) }}"          
           alt="{{ $post->title }}"
           >
