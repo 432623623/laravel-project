@@ -47,7 +47,7 @@
               <button class="btn btn-sm btn-primary">Post Comment</button>
           </form>
       @endauth
-      @foreach ($post->comments()->oldest()->get() as $comment)
+      @forelse ($post->comments()->oldest()->get() as $comment)
           <div class="mb-3 p-2 border rounded">
           <a wire:navigate href="/profile/{{$comment->user->username}}" 
             class="d-block text-decoration-none text-dark">
@@ -64,6 +64,8 @@
               </form>
             @endcan
           </div>      
-      @endforeach
+      @empty
+      <div class="text-muted mb-4">No comments</div>
+      @endforelse
     </div>
 </x-layout>
