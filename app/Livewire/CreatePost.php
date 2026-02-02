@@ -34,7 +34,7 @@ class CreatePost extends Component
             'image'=>$imagePath,
             'user_id'=>auth()->id(),
         ]);
-/*
+
         Mail::to(auth()->user()->email)->send(
             new NewPostEmail([
                 'name' => auth()->user()->username,
@@ -42,7 +42,7 @@ class CreatePost extends Component
                 'url' => route('post.show', $post),
             ])
         );
-*/
+
         session()->flash('success', 'New post created');
         
         return redirect()->route('post.show',$post);
