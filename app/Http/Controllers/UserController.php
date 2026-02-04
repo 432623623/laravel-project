@@ -129,13 +129,14 @@ class UserController extends Controller
         ]);
         $user = User::create($incomingFields);
         auth()->login($user);
-
+/*
         Mail::to(auth()->user()->email)->send(
             new NewUserEmail([
                 'name' => auth()->user()->username,
             ])
         );
-
+        -
+*/
         return redirect('/')->with('success','thank you for creating account');
     }
     public function index(){

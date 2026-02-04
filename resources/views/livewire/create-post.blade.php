@@ -15,7 +15,7 @@
           <label for="post-body" class="text-muted mb-1">
             <small>Body Content</small>
           </label>
-          <input id="body" type="hidden" name="body" value="{{ old('body') }}">
+          <input id="body" type="hidden" name="body">
           <trix-editor input="body"></trix-editor>
           @error('body')
           <p class="m-0 small alert alert-danger shadow-sm">{{$message}}</p>

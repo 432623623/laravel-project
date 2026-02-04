@@ -83,6 +83,12 @@ Route::get('/profile/{user:username}/followers',[UserController::class, 'profile
 Route::get('/profile/{user:username}/following',[UserController::class, 'profileFollowing']);
 
 // forgot pw
+Route::get('/forgot-password',[ForgotPasswordController::class, 'show'])->name('password.request');
+Route::post('/forgot-password',[ForgotPasswordController::class, 'send'])->name('password.email');
+Route::get('/reset-password/{token}',[ResetPasswordController::class, 'show' ])->name('password.reset');
+Route::post('/reset-password',[ResetPasswordController::class, 'update'])->name('password.update');
+
+
 
 /*
 // chat 

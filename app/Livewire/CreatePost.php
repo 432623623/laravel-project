@@ -15,15 +15,16 @@ class CreatePost extends Component
 
     public $title='';
     public $body='';
-    public $image;
+    //public $image;
 
     public function create(){
         $this->validate([
             'title'=> 'required|min:3',
             'body'=> 'required|min:10',
-            'image'=> 'nullable|image|max:3072',]);
+            //'image'=> 'nullable|image|max:3072',
+            ]);
 
-        $imagePath=null;
+        //$imagePath=null;
         /*
         if($this->image){
             $imagePath = $this->image->store('posts','public');
@@ -31,7 +32,7 @@ class CreatePost extends Component
         $post = Post::create([
             'title'=>strip_tags($this->title),
             'body'=>$this->body,
-            'image'=>$imagePath,
+            //'image'=>$imagePath,
             'user_id'=>auth()->id(),
         ]);
 /*

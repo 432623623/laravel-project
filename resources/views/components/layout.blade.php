@@ -91,7 +91,13 @@
                   class="btn btn-primary btn-sm btn-block btn-md-inline">
                   Sign In</button>
                 </div>
+                              <div class="text=right mt-1">
+                <a href="{{ route('password.request') }}" class="small text-light">
+                  Forgot PW?
+                </a>
               </div>
+              </div>
+
             </form>
           </div>
         @endauth

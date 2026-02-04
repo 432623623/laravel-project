@@ -1,15 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-//use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use League\CommonMark\CommonMarkConverter;
+
 class PostController extends Controller
 {
     public function search($term){
@@ -64,31 +63,19 @@ class PostController extends Controller
         $posts = Post::latest()->paginate(10);
         return view('posts.index', compact('posts'));
     }
-    public function uploadTrixImage (Request $request){
-        try{
 
+    public function uploadTrixImage(Request $request)
+    {
         $request->validate([
-            'image' => 'required|image|max:3072'
+            'image' => 'required|image|max:4096',
         ]);
-        $file = $request->file('image');
-        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
-      
-        $path = $file->storeAs('trix-images', $filename, 'public');
-        $url = Storage::disk('public')->url("trix-images/$filename");
-/*
-        $thumbImage = $manager->read($file->getRealPath());
-        $thumbPath = storage_path("app/public/trix-images/thumb/$filename");
-        $thumbImage->scale(width:300)->save($thumbPath, quality: 100);  
-*/
+
+        $path = $request->file('image')->store('trix-images', 'public');
+
         return response()->json([
-            'url'=>$url,
-            'full'=>$url
+            'url'  => asset('storage/' . $path),
+            'full' => asset('storage/' . $path),
         ]);
-        } catch(\Throwable $e){
-            \Log::error('Trix upload failed: ' .$e->getMessage());
-            return response()->json([
-                'error'=> $e->getMessage()
-            ], 500);
-        }
     }
+
 }
